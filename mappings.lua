@@ -11,18 +11,40 @@ return {
     ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bD"] = {
       function()
-        require("astronvim.utils.status").heirline.buffer_picker(function(bufnr) require("astronvim.utils.buffer").close(bufnr) end)
+        require("astronvim.utils.status").heirline.buffer_picker(
+          function(bufnr) require("astronvim.utils.buffer").close(bufnr) end
+        )
       end,
       desc = "Pick to close",
     },
     -- tables with the `name` key will be registered with which-key if it's installed
     -- this is useful for naming menus
     ["<leader>b"] = { name = "Buffers" },
-    -- quick save
-    -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+    -- cycle through buffers
+    ["<TAB>"] = {
+      function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
+      desc = "Next buffer",
+    },
+    ["<S-Tab>"] = {
+      function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
+      desc = "Previous buffer",
+    },
+    ["<leader>lm"] = { function() require("rust-tools").expand_macro.expand_macro() end, desc = "Expand [M]acro" },
+    -- invert file explorer bindings
+    ["<leader>o"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
+    ["<leader>e"] = {
+      function()
+        if vim.bo.filetype == "neo-tree" then
+          vim.cmd.wincmd "p"
+        else
+          vim.cmd.Neotree "focus"
+        end
+      end,
+      desc = "Toggle Explorer Focus",
+    },
   },
   t = {
     -- setting a mapping to false will disable it
-    -- ["<esc>"] = false,
+    ["<ESC>"] = { "<C-\\><C-n>", desc = "Esc terminal mode" },
   },
 }

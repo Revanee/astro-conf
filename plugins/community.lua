@@ -3,7 +3,29 @@ return {
   "AstroNvim/astrocommunity",
   -- example of imporing a plugin, comment out to use it or add your own
   -- available plugins can be found at https://github.com/AstroNvim/astrocommunity
-
-  -- { import = "astrocommunity.colorscheme.catppuccin" },
   -- { import = "astrocommunity.completion.copilot-lua-cmp" },
+  { import = "astrocommunity.pack.rust" },
+  {
+    "rust-tools.nvim",
+    -- opts = function()
+    --   return {
+    --     server = astronvim.lsp.server_settings "rust_analyzer",
+    --   }
+    -- end,
+    opts = {
+      server = {
+        settings = {
+          ["rust-analyzer"] = {
+            -- checkOnSave = {
+            --   command = "clippy",
+            -- },
+            check = {
+              command = "clippy",
+            },
+            procMacro = { enable = true },
+          },
+        },
+      },
+    },
+  },
 }
