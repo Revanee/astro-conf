@@ -16,13 +16,22 @@ return {
       server = {
         settings = {
           ["rust-analyzer"] = {
-            -- checkOnSave = {
-            --   command = "clippy",
-            -- },
-            check = {
-              command = "clippy",
+            checkOnSave = {
+              overrideCommand = {
+                "cargo",
+                "clippy",
+                "--workspace",
+                "--message-format=json",
+                "--all-targets",
+                "--all-features",
+              },
             },
-            procMacro = { enable = true },
+            cargo = {
+              allFeatures = true,
+            },
+            procMacro = {
+              enable = true,
+            },
           },
         },
       },
