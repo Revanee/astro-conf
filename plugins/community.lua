@@ -12,22 +12,22 @@ return {
     --     server = astronvim.lsp.server_settings "rust_analyzer",
     --   }
     -- end,
-    opts = {
+opts = {
       server = {
         settings = {
           ["rust-analyzer"] = {
             checkOnSave = {
               overrideCommand = {
-                "cargo",
-                "clippy",
-                "--workspace",
-                "--message-format=json",
-                "--all-targets",
-                "--all-features",
+                "cargo", "lints", "clippy", "--message-format=json", "--all-targets"
               },
             },
             cargo = {
               allFeatures = true,
+            },
+            rustfmt = {
+              overrideCommand = {
+                "rustup", "run", "nightly", "--", "rustfmt", "--"
+              }
             },
             procMacro = {
               enable = true,

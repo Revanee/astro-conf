@@ -79,6 +79,10 @@ return {
           entry_filter = function(entry) return require("cmp").lsp.CompletionItemKind.Snippet ~= entry:get_kind() end,
         },
       }
+      opts.window.completion.border = "rounded"
+      opts.window.documentation.border = "rounded"
+      local lspkind_status_ok, lspkind = pcall(require, "lspkind")
+      if lspkind_status_ok then opts.formatting.format = lspkind.cmp_format { maxwidth = 30 } end
       return opts
     end,
   },
