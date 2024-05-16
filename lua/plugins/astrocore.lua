@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -32,6 +30,7 @@ return {
         spell = false, -- sets vim.opt.spell
         signcolumn = "auto", -- sets vim.opt.signcolumn to auto
         wrap = false, -- sets vim.opt.wrap
+        guifont = { "", ":h12" },
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -40,7 +39,7 @@ return {
       },
       o = {
         matchpairs = "(:),{:},[:],<:>",
-      }
+      },
     },
     -- Mappings can be configured through AstroCore as well.
     -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
@@ -65,8 +64,29 @@ return {
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
         ["<Leader>b"] = { desc = "Buffers" },
+        -- cycle through buffers
+        ["<TAB>"] = {
+          function() require("astrocore.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
+          desc = "Next buffer",
+        },
+        ["<S-Tab>"] = {
+          function() require("astrocore.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
+          desc = "Previous buffer",
+        },
         -- quick save
-        -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+        ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
+        ["<leader>lm"] = { function() require("rust-tools").expand_macro.expand_macro() end, desc = "Expand [M]acro" },
+        ["<leader>o"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
+        ["<Leader>e"] = {
+          function()
+            if vim.bo.filetype == "neo-tree" then
+              vim.cmd.wincmd "p"
+            else
+              vim.cmd.Neotree "focus"
+            end
+          end,
+          desc = "Toggle Explorer Focus",
+        },
       },
       t = {
         -- setting a mapping to false will disable it
