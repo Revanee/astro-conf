@@ -46,6 +46,24 @@ return {
     ---@diagnostic disable: missing-fields
     config = {
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
+      ["rust-analyzer"] = {
+        checkOnSave = {
+          overrideCommand = {
+            "cargo", "lints", "clippy", "--message-format=json", "--all-targets"
+          },
+        },
+        cargo = {
+          allFeatures = true,
+        },
+        rustfmt = {
+          overrideCommand = {
+            "rustup", "run", "nightly", "--", "rustfmt", "--"
+          }
+        },
+        procMacro = {
+          enable = true,
+        },
+      },
     },
     -- customize how language servers are attached
     handlers = {
