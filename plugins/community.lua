@@ -5,6 +5,7 @@ return {
   -- available plugins can be found at https://github.com/AstroNvim/astrocommunity
   -- { import = "astrocommunity.completion.copilot-lua-cmp" },
   { import = "astrocommunity.pack.rust" },
+  { import = "astrocommunity.pack.typescript-all-in-one" },
   {
     "rust-tools.nvim",
     -- opts = function()
@@ -12,7 +13,7 @@ return {
     --     server = astronvim.lsp.server_settings "rust_analyzer",
     --   }
     -- end,
-opts = {
+    opts = {
       server = {
         settings = {
           ["rust-analyzer"] = {
