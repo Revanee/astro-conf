@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -46,22 +44,38 @@ return {
     ---@diagnostic disable: missing-fields
     config = {
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
-      ["rust-analyzer"] = {
-        checkOnSave = {
-          overrideCommand = {
-            "cargo", "lints", "clippy", "--message-format=json", "--all-targets"
+      rust_analyzer = {
+        settings = {
+          ["rust-analyzer"] = {
+            check = {
+              overrideCommand = {
+                "cargo",
+                "lints",
+                "clippy",
+                "--message-format=json",
+                "--all-targets",
+                "--all-features",
+              },
+            },
+            cargo = {
+              allFeatures = true,
+              extraEnv = { CARGO_PROFILE_RUST_ANALYZER_INHERITS = "dev" },
+              extraArgs = { "--profile", "rust-analyzer" },
+            },
+            rustfmt = {
+              overrideCommand = {
+                "rustup",
+                "run",
+                "nightly",
+                "--",
+                "rustfmt",
+                "--",
+              },
+            },
+            procMacro = {
+              enable = true,
+            },
           },
-        },
-        cargo = {
-          allFeatures = true,
-        },
-        rustfmt = {
-          overrideCommand = {
-            "rustup", "run", "nightly", "--", "rustfmt", "--"
-          }
-        },
-        procMacro = {
-          enable = true,
         },
       },
     },
