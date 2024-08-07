@@ -44,6 +44,12 @@ return {
     -- Mappings can be configured through AstroCore as well.
     -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
     mappings = {
+      v = {
+        ["<Leader>gy"] = {
+          function() require("gitlinker").get_buf_range_url "v" end,
+          desc = "Copy Git URL",
+        },
+      },
       -- first key is the mode
       n = {
         -- second key is the lefthand side of the map
@@ -75,7 +81,11 @@ return {
         },
         -- quick save
         ["<C-s>"] = { ":w!<cr>", desc = "Save File" }, -- change description but the same command
-        ["<leader>lm"] = { function() require("rust-tools").expand_macro.expand_macro() end, desc = "Expand [M]acro" },
+        ["<leader>lm"] = { function() require("rust-tools").expand_macro.expand_macro() end, desc = "Expand Macro" },
+        ["<leader>gy"] = {
+          function() require("gitlinker").get_buf_range_url() end,
+          desc = "Copy Git URL",
+        },
         ["<leader>o"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
         ["<Leader>e"] = {
           function()
