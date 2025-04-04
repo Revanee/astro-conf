@@ -49,6 +49,10 @@ return {
           ["rust-analyzer"] = {
             check = {
               overrideCommand = {
+                "rustup",
+                "run",
+                "nightly",
+                "--",
                 "cargo",
                 "lints",
                 "clippy",
