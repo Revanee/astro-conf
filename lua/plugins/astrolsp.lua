@@ -66,16 +66,6 @@ return {
               extraEnv = { CARGO_PROFILE_RUST_ANALYZER_INHERITS = "dev" },
               extraArgs = { "--profile", "rust-analyzer" },
             },
-            rustfmt = {
-              overrideCommand = {
-                "rustup",
-                "run",
-                "nightly",
-                "--",
-                "rustfmt",
-                "--",
-              },
-            },
             procMacro = {
               enable = true,
             },

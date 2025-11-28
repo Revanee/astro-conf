@@ -10,5 +10,6 @@ return {
   { import = "astrocommunity.pack.go" },
   { import = "astrocommunity.pack.helm" },
   { import = "astrocommunity.pack.yaml" },
+  { import = "astrocommunity.pack.typescript" },
   -- import/override with your plugins folder
 }
