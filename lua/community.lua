@@ -11,5 +11,6 @@ return {
   { import = "astrocommunity.pack.helm" },
   { import = "astrocommunity.pack.yaml" },
   { import = "astrocommunity.pack.typescript" },
+  { import = "astrocommunity.motion.leap-nvim" },
   -- import/override with your plugins folder
 }

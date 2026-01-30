@@ -40,6 +40,14 @@ return {
     servers = {
       -- "pyright"
     },
+    mason_lspconfig = {
+      servers = {
+        contextive = {
+          package = "contextive",
+          filetypes = "*",
+        },
+      },
+    },
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
@@ -49,10 +57,6 @@ return {
           ["rust-analyzer"] = {
             check = {
               overrideCommand = {
-                "rustup",
-                "run",
-                "nightly",
-                "--",
                 "cargo",
                 "lints",
                 "clippy",
@@ -64,7 +68,7 @@ return {
             cargo = {
               allFeatures = true,
               extraEnv = { CARGO_PROFILE_RUST_ANALYZER_INHERITS = "dev" },
-              extraArgs = { "--profile", "rust-analyzer" },
+              -- extraArgs = { "--profile", "rust-analyzer" },
             },
             procMacro = {
               enable = true,
@@ -126,6 +130,7 @@ return {
     -- A custom `on_attach` function to be run after the default `on_attach` function
     -- takes two parameters `client` and `bufnr`  (`:h lspconfig-setup`)
     on_attach = function(client, bufnr)
+      if client.name == "contextive" then client.server_capabilities.completionProvider = nil end
       -- this would disable semanticTokensProvider for all clients
       -- client.server_capabilities.semanticTokensProvider = nil
     end,
