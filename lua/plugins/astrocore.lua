@@ -101,6 +101,7 @@ return {
           end,
           desc = "Toggle Explorer Focus",
         },
+        ["<leader>y"] = { function() vim.fn.setreg("+", vim.api.nvim_buf_get_name(0)) end, desc = "Yank filename" },
       },
       t = {
         -- setting a mapping to false will disable it
